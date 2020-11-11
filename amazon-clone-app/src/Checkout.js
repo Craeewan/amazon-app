@@ -7,7 +7,8 @@ import {useStateValue} from './StateProvider'
 function Checkout() {
     const [
         {
-            basket
+            basket,
+            user
         },
         dispatch] = useStateValue();
     return (
@@ -19,6 +20,7 @@ function Checkout() {
                     className="checkout__ad"/>
 
                 <div>
+                    <h3>{user?.email}</h3>
                     <h2 className="checkout__title">
                         shopping basket
                     </h2>
