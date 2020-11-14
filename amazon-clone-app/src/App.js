@@ -8,7 +8,12 @@ import React, {useEffect} from 'react';
 import {auth} from './firebase';
 import {useStateValue} from './StateProvider';
 import Payment from './Payment';
+import {loadStripe} from '@stripe/stripe-js'
+import {Elements} from '@stripe/react-stripe-js';
+import Orders from './Orders';
 
+const promise = loadStripe("pk_test_51HmX7ZLUhtb95Dwg9UblQfGm5mnP1PPhcnhKdLxSRaslGxEp2aD8LfpTFPFIo68X3qF9xkF" +
+    "cO2g71wwnV1txqZh500slvdAXFB")
 
 function App() {
   const [
@@ -34,6 +39,9 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
+          <Route path="/orders">
+            <Orders/>
+          </Route>
           <Route path="/login">
             <Login/>
           </Route>
@@ -43,7 +51,9 @@ function App() {
           </Route>
           <Route path="/payment">
             <Header/>
-            <Payment/>
+            <Elements stripe={promise}>
+              <Payment/>
+            </Elements>
           </Route>
           <Route path="/">
             <Header/>
