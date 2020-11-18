@@ -15,54 +15,61 @@ import Orders from './Orders';
 const promise = loadStripe("pk_test_51HmX7ZLUhtb95Dwg9UblQfGm5mnP1PPhcnhKdLxSRaslGxEp2aD8LfpTFPFIo68X3qF9xkF" +
     "cO2g71wwnV1txqZh500slvdAXFB")
 
-function App() {
-  const [
-    {},
-    dispatch] = useStateValue();
-
-  useEffect(() => {
-
-    // will only run once like an if statement
-    auth.onAuthStateChanged(authUser => {
-      console.log('THE USER IS>>>>>', authUser);
-
-      if (authUser) {
-        // the user just logged in / the user was logged in
-        dispatch({type: 'SET_USER', user: authUser})
-      } else {
-        // the user is logged out
-        dispatch({type: 'SET_USER', user: null})
-      }
-    })
-  }, [])
-  return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/orders">
-            <Orders/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/checkout">
-            <Header/>
-            <Checkout/>
-          </Route>
-          <Route path="/payment">
-            <Header/>
-            <Elements stripe={promise}>
-              <Payment/>
-            </Elements>
-          </Route>
-          <Route path="/">
-            <Header/>
-            <Home/>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
+    function App() {
+      const [{}, dispatch] = useStateValue();
+    
+      useEffect(() => {
+        // will only run once when the app component loads...
+    
+        auth.onAuthStateChanged((authUser) => {
+          console.log("THE USER IS >>> ", authUser);
+    
+          if (authUser) {
+            // the user just logged in / the user was logged in
+    
+            dispatch({
+              type: "SET_USER",
+              user: authUser,
+            });
+          } else {
+            // the user is logged out
+            dispatch({
+              type: "SET_USER",
+              user: null,
+            });
+          }
+        });
+      }, []);
+    
+      return (
+        <Router>
+          <div className="app">
+            <Switch>
+              <Route path="/orders">
+                <Header />
+                <Orders />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/checkout">
+                <Header />
+                <Checkout />
+              </Route>
+              <Route path="/payment">
+                <Header />
+                <Elements stripe={promise}>
+                  <Payment />
+                </Elements>
+              </Route>
+              <Route path="/">
+                <Header />
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      );
+    }
+    
+    export default App;

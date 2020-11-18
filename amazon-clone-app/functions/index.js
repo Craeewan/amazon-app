@@ -26,12 +26,13 @@ app.post("/payments/create", async(request, response) => {
         .create({
             amount: total, // subunits of the currency
             currency: "usd"
-        });
+        })
 
     // OK - Created
     response
         .status(201)
         .send({clientSecret: paymentIntent.client_secret});
+    // console.log(paymentIntent)
 });
 
 // - Listen command
