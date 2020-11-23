@@ -12,6 +12,7 @@ function Home() {
                     alt=""/>
                 <div className="home__row">
                     <Product
+                    id={1}
                         title="The Lean Startup"
                         image="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1333576876l/10127019.jpg"
                         price={29.99}

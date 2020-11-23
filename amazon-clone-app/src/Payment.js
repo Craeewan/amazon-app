@@ -35,7 +35,6 @@ function Payment() {
     useEffect(() => {
         // generate the special stripe secret which allows us to charge a customer
         const getClientSecret = async() => {
-            // event.preventDefault();
 
             const response = await axios({
                 method: 'post',
@@ -65,18 +64,17 @@ function Payment() {
             .then(({paymentIntent}) => {
 
                 console.log(user.uid)
-                console.log({paymentIntent})
+                console.log(basket)
+                console.log(paymentIntent.id)
                 db
                     .collection('users')
                     .doc(user
                         ?.uid)
                     .collection('orders')
                     .doc(paymentIntent.id)
-                    .set({
-                        basket: basket, 
-                        amount: paymentIntent.amount, 
-                        created: paymentIntent.created
-                    })
+                    .set({basket: basket, amount: paymentIntent.amount, created: paymentIntent.created})
+                // .set({basket: '7', amount: "500", created: paymentIntent.created})
+
                 setSucceeded(true);
                 setError(null)
                 setProcessing(false)
@@ -228,5 +226,5 @@ export default Payment
 // thoughsandSeperator={true} prefix={"$"}/>                    <button
 // disabled={processing || disabled || succeeded}> <span>{processing         ?
 // <p>Processing</p>                   : "Buy Now"}</span> </button>    </div>
-//    {error && <div>{error}</div>} </form> </div> </div> </div> </div> ) }
-// export default Payment;
+// {error && <div>{error}</div>} </form> </div> </div> </div> </div> ) } export
+// default Payment;
